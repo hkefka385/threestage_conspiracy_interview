@@ -10,7 +10,7 @@ if (!file.exists("processed_data_us.rds")) {
 }
 
 # Load data as a list and unpack
-loaded_data <- readRDS("processed_data_us.rds")
+loaded_data <- readRDS("processed_data_us.rds") # or processed_data_ja.rds
 df <- loaded_data$df
 explanatory_vars <- loaded_data$explanatory_vars
 
