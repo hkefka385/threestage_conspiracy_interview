@@ -37,15 +37,23 @@ formula_Y32 <- bf(formula_Y32_, family = bernoulli())
 options(mc.cores = parallel::detectCores()) # Parallel processing
 options(brms.backend = "cmdstanr")
 
+
+priors <- c(
+  prior(normal(0, 1.5), class = "b"),
+  prior(student_t(3, 0, 2.5), class = "Intercept")
+)
+
+
 model <- brm(
   formula = formula_Y1 + formula_Y21 + formula_Y31 + formula_Y32,
   data = df,
+  prior = priors,
   chains = 4,           # Number of chains
   iter = 2000,          # Total iterations per chain
   warmup = 1000,        # Burn-in (warmup) period
   cores = 4,            # Number of cores for parallel processing
   control = list(adapt_delta = 0.95),  # HMC control parameters
-  backend = "cmdstanr"  # Use cmdstanr (recommended)
+  backend = "cmdstanr"  # Use cmdstanr
 )
 
 # Display results (if necessary)
